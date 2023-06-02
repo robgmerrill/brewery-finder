@@ -2,6 +2,9 @@ import 'dotenv/config';
 import express from 'express';
 import errorMiddleware from './lib/error-middleware.js';
 import pg from 'pg';
+import ClientError from './lib/client-error.js';
+import argon2 from 'argon2';
+import jwt from 'jsonwebtoken';
 
 // eslint-disable-next-line no-unused-vars -- Remove when used
 const db = new pg.Pool({
@@ -24,6 +27,61 @@ app.use(express.json());
 
 app.get('/api/hello', (req, res) => {
   res.json({ message: 'Hello, World!' });
+});
+
+app.post('/api/auth/sign-up', async (req, res, next) => {
+  try {
+    const { username, email, password } = req.body;
+    if (!username || !password || !email) {
+      throw new ClientError(
+        400,
+        'username, email and password are required fields'
+      );
+    }
+    const hashedPassword = await argon2.hash(password);
+    const sql = `
+      insert into "users" ("username", "email", "hashedPassword")
+        values ($1, $2, $3)
+        returning "userId", "username", "email"
+    `;
+    const params = [username, email, hashedPassword];
+    const result = await db.query(sql, params);
+    const [user] = result.rows;
+    res.status(201).json(user);
+  } catch (err) {
+    next(err);
+  }
+});
+
+app.post('/api/auth/sign-in', async (req, res, next) => {
+  try {
+    const { username, email, password } = req.body;
+    if (!username || !password || !email) {
+      throw new ClientError(401, 'invalid login');
+    }
+    const sql = `
+      select "userId",
+            "hashedPassword"
+        from "users"
+        where "username" = $1
+      `;
+    const params = [username];
+    const result = await db.query(sql, params);
+    const [user] = result.rows;
+    if (!user) {
+      throw new ClientError(401, 'invalid login');
+    }
+    const { userId, hashedPassword } = user;
+    const isMatching = await argon2.verify(hashedPassword, password);
+    if (!isMatching) {
+      throw new ClientError(401, 'invalid login');
+    }
+    const payload = { userId, username };
+    const token = jwt.sign(payload, process.env.TOKEN_SECRET);
+    res.json({ token, user: payload });
+  } catch (err) {
+    next(err);
+  }
 });
 
 /**
