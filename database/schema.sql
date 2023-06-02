@@ -8,8 +8,7 @@ create schema "public";
 
 CREATE TABLE "public"."users" (
 	"userId" serial NOT NULL,
-	"firstName" TEXT NOT NULL,
-	"lastName" TEXT NOT NULL,
+	"username" TEXT NOT NULL,
 	"email" TEXT NOT NULL UNIQUE,
 	"hashedPassword" TEXT NOT NULL,
 	CONSTRAINT "users_pk" PRIMARY KEY ("userId")
