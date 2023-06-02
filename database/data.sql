@@ -11,6 +11,6 @@
 --      ('Get a job', false);
 
 insert into "users"
-  ("username", "email", "hashedPassword")
+  ("username", "hashedPassword")
   VALUES
-    ('robgmerrill', 'rob.merrill@learningFuze.com', 'kasdkhasdfklhjk')
+    ('robgmerrill', 'kasdkhasdfklhjk')

@@ -31,20 +31,17 @@ app.get('/api/hello', (req, res) => {
 
 app.post('/api/auth/sign-up', async (req, res, next) => {
   try {
-    const { username, email, password } = req.body;
-    if (!username || !password || !email) {
-      throw new ClientError(
-        400,
-        'username, email and password are required fields'
-      );
+    const { username, password } = req.body;
+    if (!username || !password) {
+      throw new ClientError(400, 'username and password are required fields');
     }
     const hashedPassword = await argon2.hash(password);
     const sql = `
-      insert into "users" ("username", "email", "hashedPassword")
-        values ($1, $2, $3)
-        returning "userId", "username", "email"
+      insert into "users" ("username", "hashedPassword")
+        values ($1, $2)
+        returning "userId", "username"
     `;
-    const params = [username, email, hashedPassword];
+    const params = [username, hashedPassword];
     const result = await db.query(sql, params);
     const [user] = result.rows;
     res.status(201).json(user);
@@ -55,8 +52,8 @@ app.post('/api/auth/sign-up', async (req, res, next) => {
 
 app.post('/api/auth/sign-in', async (req, res, next) => {
   try {
-    const { username, email, password } = req.body;
-    if (!username || !password || !email) {
+    const { username, password } = req.body;
+    if (!username || !password) {
       throw new ClientError(401, 'invalid login');
     }
     const sql = `
