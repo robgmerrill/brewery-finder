@@ -1,7 +1,7 @@
 import { Sandpack } from '@codesandbox/sandpack-react';
 import ReactMarkdown from 'react-markdown';
 import { useState, useEffect, useContext } from 'react';
-import AppContext from '../components/AppContext';
+import AppContext from '../../components/AppContext';
 import { useNavigate } from 'react-router-dom';
 
 const markdownContent = `
@@ -48,6 +48,7 @@ Remember, it's perfectly okay if this all seems a bit confusing right now. The m
 export default function JSX() {
   const [isComplete, setIsComplete] = useState(false);
   const { user } = useContext(AppContext);
+  console.log(user);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -57,8 +58,8 @@ export default function JSX() {
   // useEffect
   useEffect(() => {
     async function getData() {
-      const result = await fetch('/api/exercises/:id');
-      const data = await result.json();
+      // const result = await fetch('/api/exercises/:id');
+      // const data = await result.json();
     }
 
     getData();

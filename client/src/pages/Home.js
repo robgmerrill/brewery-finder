@@ -15,7 +15,7 @@ export default function Home() {
   return (
     <div className="d-flex flex-column min-vh-100 justify-content-center align-items-center">
       <h2>Learn React</h2>
-      <Link to="/jsx">JSX</Link>
+      <Link to="/exercises/jsx">JSX</Link>
       <h3>Fundamentals</h3>
       <h3>Props and State</h3>
     </div>

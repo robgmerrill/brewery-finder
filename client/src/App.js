@@ -6,12 +6,13 @@ import AppContext from './components/AppContext';
 import NavBar from './components/NavBar';
 import Home from './pages/Home';
 import Auth from './pages/AuthPage';
-import JSX from './pages/jsx';
+import JSX from './pages/exercises/jsx';
 
 const tokenKey = 'react-context-jwt';
 
 function App() {
   const [user, setUser] = useState();
+  console.log('user', user);
   const [token, setToken] = useState();
   const [isAuthorizing, setIsAuthorizing] = useState(true);
   // const [serverData, setServerData] = useState('');
@@ -31,7 +32,7 @@ function App() {
 
   useEffect(() => {
     // will be undefined if nothing is in local storage
-    const auth = localStorage.getItem(tokenKey);
+    const auth = JSON.parse(localStorage.getItem(tokenKey));
     if (auth) {
       setUser(auth.user);
       setToken(auth.token);
@@ -43,7 +44,9 @@ function App() {
   if (isAuthorizing) return null;
 
   function handleSignIn(auth) {
-    localStorage.setItem(tokenKey, auth);
+    console.log(auth);
+    // should i do this
+    localStorage.setItem(tokenKey, JSON.stringify(auth));
     setUser(auth.user);
     setToken(auth.token);
   }
@@ -62,7 +65,7 @@ function App() {
         <Routes>
           <Route path="/" element={<NavBar />}>
             <Route index element={<Home />} />
-            <Route path="/jsx" element={<JSX />} />
+            <Route path="/exercises/jsx" element={<JSX />} />
             <Route path="sign-in" element={<Auth action="sign-in" />} />
             <Route path="sign-up" element={<Auth action="sign-up" />} />
             {/* <Route path="*" element={<NotFound />} /> */}
