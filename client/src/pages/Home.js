@@ -2,6 +2,7 @@ import { useContext, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import AppContext from '../components/AppContext';
 import './Home.css';
+import { Link } from 'react-router-dom';
 
 export default function Home() {
   const { user } = useContext(AppContext);
@@ -12,13 +13,11 @@ export default function Home() {
   // }, [user, navigate]);
 
   return (
-    <div className="container">
-      <h2>Local Brews - Walkable Breweries in the Neighborhood</h2>
-
-      <form>
-        <label htmlFor="zip-code">zip code</label>
-        <input id="zip-code" />
-      </form>
+    <div className="d-flex flex-column min-vh-100 justify-content-center align-items-center">
+      <h2>Learn React</h2>
+      <Link to="/jsx">JSX</Link>
+      <h3>Fundamentals</h3>
+      <h3>Props and State</h3>
     </div>
   );
 }
