@@ -1,10 +1,11 @@
 import { FaPlusCircle } from 'react-icons/fa';
-
-
+import { useContext } from 'react';
+import AppContext from './AppContext';
 
 
 export default function BreweryItem({ brewery }) {
-
+  const {user} = useContext(AppContext)
+  console.log(user)
   // I need to hit api on on the back end with a post request. it needs the user id and the brewery id?
   async function handleClick(brewery) {
     console.log('clicked')
@@ -14,7 +15,7 @@ export default function BreweryItem({ brewery }) {
     headers: {
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify({ brewery }),
+    body: JSON.stringify({ brewery, user }),
   };
   const res = await fetch(`/api/breweries/`, req);
   if (!res.ok) throw new Error(`fetch Error ${res.status}`);

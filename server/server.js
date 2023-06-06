@@ -82,11 +82,20 @@ app.post('/api/auth/sign-in', async (req, res, next) => {
   }
 });
 
-app.post('/api/breweries', (req, res, next) => {
+app.post('/api/breweries', async (req, res, next) => {
   try {
     console.log(req.body)
-    const {id, name, street, website_url} = req.body.brewery;
-    console.log(id, name, street, website_url);
+    const {name, street, website_url} = req.body.brewery;
+    const {userId} = req.body.user;
+    console.log(userId);
+    console.log( name, street, website_url);
+    const sql = `
+      insert into "breweries" ("title", "address", "rating", "website", "userId")
+values ($1, $2, $3, $4, $5);
+      `;
+    // const params = [name, street, website_url];
+    const result = await db.query(sql, [name, street, 10, website_url, userId]);
+    // const [brew] = result.rows;
   } catch (err) {
     console.log('hi');
     next(err);
