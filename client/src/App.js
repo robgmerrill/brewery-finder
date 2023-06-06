@@ -6,7 +6,6 @@ import AppContext from './components/AppContext';
 import NavBar from './components/NavBar';
 import Home from './pages/Home';
 import Auth from './pages/AuthPage';
-import JSX from './pages/exercises/jsx';
 
 const tokenKey = 'react-context-jwt';
 
@@ -65,7 +64,6 @@ function App() {
         <Routes>
           <Route path="/" element={<NavBar />}>
             <Route index element={<Home />} />
-            <Route path="/exercises/jsx" element={<JSX />} />
             <Route path="sign-in" element={<Auth action="sign-in" />} />
             <Route path="sign-up" element={<Auth action="sign-up" />} />
             {/* <Route path="*" element={<NotFound />} /> */}

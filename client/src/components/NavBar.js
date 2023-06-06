@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { Link, Outlet } from 'react-router-dom';
-import { FaLaptopCode, FaSignOutAlt } from 'react-icons/fa';
+import { FaBeer, FaSignOutAlt } from 'react-icons/fa';
 import AppContext from '../components/AppContext';
 
 export default function Navbar() {
@@ -10,8 +10,8 @@ export default function Navbar() {
       <nav className="navbar navbar-dark bg-dark">
         <div className="container">
           <Link className="navbar-brand" to="/">
-            <FaLaptopCode className="mr-2" />
-            Learn React
+            <FaBeer className="mr-2" />
+            Brewery Finder
           </Link>
           <div>
             {user && (
