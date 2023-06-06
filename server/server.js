@@ -1,10 +1,11 @@
 import 'dotenv/config';
 import express from 'express';
-import errorMiddleware from './lib/error-middleware.js';
+import { ClientError, errorMiddleware, authMiddleware } from './lib/index.js';
 import pg from 'pg';
-import ClientError from './lib/client-error.js';
+
 import argon2 from 'argon2';
 import jwt from 'jsonwebtoken';
+// import authorizationMiddleware from './lib/authorization-middleware';
 
 // eslint-disable-next-line no-unused-vars -- Remove when used
 const db = new pg.Pool({
@@ -80,6 +81,29 @@ app.post('/api/auth/sign-in', async (req, res, next) => {
     next(err);
   }
 });
+
+app.get('/api/exercises/:id', authMiddleware, (req, res, next) => {
+  try {
+    console.log('hi');
+  } catch (err) {
+    console.log('hi');
+    next(err);
+  }
+});
+
+// app.get('/api/exercises', authMiddleware, async (req, res, next) => {
+//   try {
+//     const sql = `
+//       select * from "entries"
+//         where "userId" = $1
+//         order by "entryId" desc;
+//     `;
+//     const result = await db.query(sql, [req.user.userId]);
+//     res.status(201).json(result.rows);
+//   } catch (err) {
+//     next(err);
+//   }
+// });
 
 /**
  * Serves React's index.html if no api route matches.
