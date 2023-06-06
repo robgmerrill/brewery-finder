@@ -4,6 +4,7 @@ import AppContext from '../components/AppContext';
 import './Home.css';
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
+import BreweryList from '../components/BreweryList';
 
 export default function Home() {
   const [breweries, setBreweries] = useState([]);
@@ -16,16 +17,16 @@ export default function Home() {
   //   if (!user) navigate('/sign-in');
   // }, [user, navigate]);
 
-  useEffect(() => {
-    async function fetchData() {
-      const response = await fetch(
-        `https://api.openbrewerydb.org/v1/breweries?by_postal=98108`
-      );
-      const data = await response.json();
-      console.log(data);
-    }
-    fetchData();
-  });
+  // useEffect(() => {
+  //   async function fetchData() {
+  //     const response = await fetch(
+  //       `https://api.openbrewerydb.org/v1/breweries?by_postal=98108`
+  //     );
+  //     const data = await response.json();
+  //     setBreweries(data)
+  //   }
+  //   fetchData();
+  // });
 
   async function onSubmit(e) {
     e.preventDefault();
@@ -34,10 +35,12 @@ export default function Home() {
     );
     const data = await response.json();
     console.log(data);
+    setBreweries(data);
   }
 
   return (
-    <div className="d-flex flex-column min-vh-100 justify-content-center align-items-center">
+    <div>
+      {/* // <div className="d-flex flex-column min-vh-100 justify-content-center align-items-center"> */}
       <form onSubmit={onSubmit}>
         <label htmlFor="zip-code">enter zip</label>
         <input
@@ -46,6 +49,13 @@ export default function Home() {
           id="zip-code"
         />
       </form>
+      {breweries.length > 0 ? (
+        <BreweryList breweries={breweries} />
+      ) : (
+        <h1 className="d-flex flex-column min-vh-100 justify-content-center align-items-center">
+          Search for neighborhood breweries
+        </h1>
+      )}
     </div>
   );
 }
