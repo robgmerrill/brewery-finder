@@ -9,7 +9,15 @@ export default function AuthForm({ action, onSignIn }) {
   async function handleSubmit(event) {
     event.preventDefault();
     const formData = new FormData(event.target);
-    const { username, password } = Object.fromEntries(formData.entries());
+    const { username, password, confirmPassword } = Object.fromEntries(
+      formData.entries()
+    );
+
+    if (action === 'sign-up' && password !== confirmPassword) {
+      setError({ message: 'Passwords do not match.' });
+      return;
+    }
+
     try {
       const result = await signUpOrIn(action, username, password);
       if (action === 'sign-up') {
@@ -26,6 +34,7 @@ export default function AuthForm({ action, onSignIn }) {
   const alternateActionText =
     action === 'sign-up' ? 'Sign in instead' : 'Register now';
   const submitButtonText = action === 'sign-up' ? 'Register' : 'Log In';
+
   return (
     <form className="w-100" onSubmit={handleSubmit}>
       <div className="mb-3">
@@ -51,6 +60,19 @@ export default function AuthForm({ action, onSignIn }) {
           />
         </label>
       </div>
+      {action === 'sign-up' && (
+        <div className="mb-3">
+          <label className="form-label">
+            Confirm Password:
+            <input
+              required
+              type="password"
+              name="confirmPassword"
+              className="form-control bg-light"
+            />
+          </label>
+        </div>
+      )}
       <div className="d-flex justify-content-between align-items-center">
         <small>
           <Link className="text-muted" to={alternateActionTo}>
