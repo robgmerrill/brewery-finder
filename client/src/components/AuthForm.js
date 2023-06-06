@@ -6,13 +6,10 @@ export default function AuthForm({ action, onSignIn }) {
   const navigate = useNavigate();
   const [error, setError] = useState();
 
-  console.log(onSignIn);
-
   async function handleSubmit(event) {
     event.preventDefault();
     const formData = new FormData(event.target);
     const { username, password } = Object.fromEntries(formData.entries());
-    console.log(username, password);
     try {
       const result = await signUpOrIn(action, username, password);
       if (action === 'sign-up') {

@@ -56,14 +56,15 @@ export default function JSX() {
   }, [user, navigate]);
 
   // useEffect
-  useEffect(() => {
-    async function getData() {
-      // const result = await fetch('/api/exercises/:id');
-      // const data = await result.json();
-    }
+  // useEffect(() => {
+  //   async function getData() {
+  //     const result = await fetch('/api/exercises/:id');
+  //     const data = await result.json();
+  //     console.log(data)
+  //   }
 
-    getData();
-  }, []);
+  //   getData();
+  // }, []);
 
   function handleClick() {
     console.log('clicked');

@@ -8,7 +8,6 @@ export default function AuthPage({ action }) {
   const navigate = useNavigate();
   const { user, handleSignIn } = useContext(AppContext);
 
-  console.log('handleSignIn', handleSignIn);
   useEffect(() => {
     if (user) navigate('/');
   }, [user, navigate]);
