@@ -82,9 +82,11 @@ app.post('/api/auth/sign-in', async (req, res, next) => {
   }
 });
 
-app.get('/api/exercises/:id', authMiddleware, (req, res, next) => {
+app.post('/api/breweries', (req, res, next) => {
   try {
-    console.log('hi');
+    console.log(req.body)
+    const {id, name, street, website_url} = req.body.brewery;
+    console.log(id, name, street, website_url);
   } catch (err) {
     console.log('hi');
     next(err);
