@@ -12,7 +12,7 @@ export default function Home() {
   const { user } = useContext(AppContext);
   const navigate = useNavigate();
   console.log(zipCode);
-  console.log(breweries)
+  console.log(breweries);
   // useEffect(() => {
   //   if (!user) navigate('/sign-in');
   // }, [user, navigate]);
@@ -49,13 +49,15 @@ export default function Home() {
           id="zip-code"
         />
       </form>
-      {breweries.length > 0 ? (
-        <BreweryList breweries={breweries} />
-      ) : (
-        <h1 className="d-flex flex-column min-vh-100 justify-content-center align-items-center">
-          Search for neighborhood breweries
-        </h1>
-      )}
+      <div className="mb-5">
+        {breweries.length > 0 ? (
+          <BreweryList breweries={breweries} />
+        ) : (
+          <h1 className="d-flex flex-column min-vh-100 justify-content-center align-items-center">
+            Search for neighborhood breweries
+          </h1>
+        )}
+      </div>
     </div>
   );
 }
