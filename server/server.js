@@ -123,19 +123,6 @@ app.post('/api/favorites', async(req, res, next) => {
   }
 })
 
-// app.get('/api/exercises', authMiddleware, async (req, res, next) => {
-//   try {
-//     const sql = `
-//       select * from "entries"
-//         where "userId" = $1
-//         order by "entryId" desc;
-//     `;
-//     const result = await db.query(sql, [req.user.userId]);
-//     res.status(201).json(result.rows);
-//   } catch (err) {
-//     next(err);
-//   }
-// });
 
 /**
  * Serves React's index.html if no api route matches.
