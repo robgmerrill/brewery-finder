@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react';
-import logo from './logo.svg';
 import './App.css';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import AppContext from './components/AppContext';
 import NavBar from './components/NavBar';
 import Home from './pages/Home';
 import Auth from './pages/AuthPage';
+import Favorites from './pages/Favorites';
 
 const tokenKey = 'react-context-jwt';
 
@@ -64,6 +64,7 @@ function App() {
         <Routes>
           <Route path="/" element={<NavBar />}>
             <Route index element={<Home />} />
+            <Route path="/favorites" element={<Favorites />} />
             <Route path="sign-in" element={<Auth action="sign-in" />} />
             <Route path="sign-up" element={<Auth action="sign-up" />} />
             {/* <Route path="*" element={<NotFound />} /> */}

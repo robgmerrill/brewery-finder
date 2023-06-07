@@ -12,7 +12,7 @@ export default function Home() {
   const { user } = useContext(AppContext);
   const navigate = useNavigate();
   console.log(zipCode);
-
+  console.log(breweries)
   // useEffect(() => {
   //   if (!user) navigate('/sign-in');
   // }, [user, navigate]);

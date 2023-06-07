@@ -90,7 +90,7 @@ app.post('/api/breweries', async (req, res, next) => {
     console.log(userId);
     console.log( name, street, website_url);
     const sql = `
-      insert into "breweries" ("title", "address", "rating", "website", "userId")
+      insert into "breweries" ("name", "street", "rating", "website_url", "userId")
 values ($1, $2, $3, $4, $5);
       `;
     // const params = [name, street, website_url];
@@ -101,6 +101,27 @@ values ($1, $2, $3, $4, $5);
     next(err);
   }
 });
+
+app.post('/api/favorites', async(req, res, next) => {
+  try {
+    console.log(req.body)
+    const {userId} = req.body.user;
+    console.log(userId)
+    const sql = `
+      select "breweryId", "name", "street", "rating", "website_url", "userId"
+        from "breweries"
+        where "userId" = $1
+    `;
+        const result = await db.query(sql, [
+          userId,
+        ]);
+        const {rows} = result
+        console.log(rows);
+        res.json(rows)
+  } catch(err) {
+    next(err)
+  }
+})
 
 // app.get('/api/exercises', authMiddleware, async (req, res, next) => {
 //   try {

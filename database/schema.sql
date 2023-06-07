@@ -19,10 +19,10 @@ CREATE TABLE "public"."users" (
 
 CREATE TABLE "public"."breweries" (
 	"breweryId" serial NOT NULL,
-	"title" TEXT NOT NULL,
-	"address" TEXT NOT NULL,
+	"name" TEXT NOT NULL,
+	"street" TEXT NOT NULL,
 	"rating" int NOT NULL,
-	"website" TEXT NOT NULL,
+	"website_url" TEXT NOT NULL,
 	"userId" int NOT NULL,
 	CONSTRAINT "breweries_pk" PRIMARY KEY ("breweryId")
 ) WITH (
