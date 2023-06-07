@@ -5,6 +5,8 @@ import BreweryList from '../components/BreweryList';
 export default function Favorites() {
   const [favoriteBreweries, setFavoriteBreweries] = useState([]);
   const { user } = useContext(AppContext);
+  console.log("user", user)
+  const auth = JSON.parse(localStorage.getItem('react-context-jwt'));
 
   useEffect(() => {
     async function fetchData() {
@@ -12,6 +14,8 @@ export default function Favorites() {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          Authorization:
+            `Bearer ${auth.token}`,
         },
         body: JSON.stringify({ user }),
       };
@@ -23,7 +27,7 @@ export default function Favorites() {
       setFavoriteBreweries(data);
     }
     fetchData();
-  }, [user]);
+  }, [user, auth.token]);
 
   console.log('favorite breweries', favoriteBreweries);
 

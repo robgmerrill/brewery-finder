@@ -102,7 +102,7 @@ values ($1, $2, $3, $4, $5);
   }
 });
 
-app.post('/api/favorites', async(req, res, next) => {
+app.post('/api/favorites', authMiddleware, async(req, res, next) => {
   try {
     console.log(req.body)
     const {userId} = req.body.user;
