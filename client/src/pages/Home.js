@@ -17,17 +17,6 @@ export default function Home() {
   //   if (!user) navigate('/sign-in');
   // }, [user, navigate]);
 
-  // useEffect(() => {
-  //   async function fetchData() {
-  //     const response = await fetch(
-  //       `https://api.openbrewerydb.org/v1/breweries?by_postal=98108`
-  //     );
-  //     const data = await response.json();
-  //     setBreweries(data)
-  //   }
-  //   fetchData();
-  // });
-
   async function onSubmit(e) {
     e.preventDefault();
     const response = await fetch(
