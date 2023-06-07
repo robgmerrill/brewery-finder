@@ -4,9 +4,7 @@ import BreweryList from '../components/BreweryList';
 
 export default function Favorites() {
   const [favoriteBreweries, setFavoriteBreweries] = useState([]);
-  const { user } = useContext(AppContext);
-  console.log("user", user)
-  const auth = JSON.parse(localStorage.getItem('react-context-jwt'));
+  const { user, token } = useContext(AppContext);
 
   useEffect(() => {
     async function fetchData() {
@@ -15,21 +13,21 @@ export default function Favorites() {
         headers: {
           'Content-Type': 'application/json',
           Authorization:
-            `Bearer ${auth.token}`,
+            `Bearer ${token}`,
         },
         body: JSON.stringify({ user }),
       };
       const res = await fetch('/api/favorites', req);
       const data = await res.json();
-      console.log(data);
+      // console.log(data);
       if (!res.ok) throw new Error(`fetch Error ${res.status}`);
       // return await res.json();
       setFavoriteBreweries(data);
     }
     fetchData();
-  }, [user, auth.token]);
+  }, [user, token]);
 
-  console.log('favorite breweries', favoriteBreweries);
+  // console.log('favorite breweries', favoriteBreweries);
 
   if (!favoriteBreweries) {
     return <h1>Loading...</h1>;

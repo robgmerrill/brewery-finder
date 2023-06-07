@@ -11,8 +11,8 @@ export default function Home() {
   const [zipCode, setZipCode] = useState('');
   const { user } = useContext(AppContext);
   const navigate = useNavigate();
-  console.log(zipCode);
-  console.log(breweries);
+  // console.log(zipCode);
+  // console.log(breweries);
   // useEffect(() => {
   //   if (!user) navigate('/sign-in');
   // }, [user, navigate]);
@@ -23,7 +23,7 @@ export default function Home() {
       `https://api.openbrewerydb.org/v1/breweries?by_postal=${zipCode}`
     );
     const data = await response.json();
-    console.log(data);
+
     setBreweries(data);
   }
 

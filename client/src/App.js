@@ -11,7 +11,7 @@ const tokenKey = 'react-context-jwt';
 
 function App() {
   const [user, setUser] = useState();
-  console.log('user', user);
+  // console.log('user', user);
   const [token, setToken] = useState();
   const [isAuthorizing, setIsAuthorizing] = useState(true);
   // const [serverData, setServerData] = useState('');
