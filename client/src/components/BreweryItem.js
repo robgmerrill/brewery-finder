@@ -2,6 +2,7 @@ import { FaPlusCircle, FaMinusCircle } from 'react-icons/fa';
 import { useContext } from 'react';
 import AppContext from './AppContext';
 import './BreweryItem.css';
+import BreweryRating from './BreweryRating';
 
 export default function BreweryItem({ brewery, inDatabase = false }) {
   const { user } = useContext(AppContext);
@@ -27,6 +28,7 @@ export default function BreweryItem({ brewery, inDatabase = false }) {
       <h3>{brewery.name}</h3>
       <h4>{brewery.street}</h4>
       <p>{brewery.website_url}</p>
+      {brewery.rating && <BreweryRating rating={brewery.rating}/>}
       {inDatabase && (
         <button onClick={() => handleClick(brewery)}>
           <FaMinusCircle />
@@ -37,6 +39,7 @@ export default function BreweryItem({ brewery, inDatabase = false }) {
           <FaPlusCircle />
         </button>
       )}
+
     </div>
   );
 }
