@@ -5,7 +5,7 @@ import AppContext from './AppContext';
 
 export default function BreweryItem({ brewery }) {
   const {user} = useContext(AppContext)
-  console.log(user)
+  // console.log(brewery)
   // I need to hit api on on the back end with a post request. it needs the user id and the brewery id?
   async function handleClick(brewery) {
     console.log('clicked')
@@ -24,7 +24,7 @@ export default function BreweryItem({ brewery }) {
 
   return (
     <div className="col-4 card p-4">
-      {/* <h3>{brewery.name}</h3> */}
+      <h3>{brewery.name}</h3>
       <h4>{brewery.street}</h4>
       <p>{brewery.website_url}</p>
       <button onClick={() => handleClick(brewery)}>
