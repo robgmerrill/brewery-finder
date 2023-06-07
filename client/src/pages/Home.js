@@ -23,7 +23,7 @@ export default function Home() {
       `https://api.openbrewerydb.org/v1/breweries?by_postal=${zipCode}`
     );
     const data = await response.json();
-
+    console.log(data);
     setBreweries(data);
   }
 

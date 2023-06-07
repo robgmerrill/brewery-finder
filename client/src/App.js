@@ -14,6 +14,8 @@ function App() {
   // console.log('user', user);
   const [token, setToken] = useState();
   const [isAuthorizing, setIsAuthorizing] = useState(true);
+  const [favoriteBreweries, setFavoriteBreweries] = useState([]);
+  //  const { user, token } = useContext(AppContext);
   // const [serverData, setServerData] = useState('');
 
   // useEffect(() => {
@@ -56,7 +58,34 @@ function App() {
     setToken(undefined);
   }
 
-  const contextValue = { user, token, handleSignIn, handleSignOut };
+  // useEffect(() => {
+  async function fetchFavorites() {
+    const req = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({ user }),
+    };
+    const res = await fetch('/api/favorites', req);
+    const data = await res.json();
+    // console.log(data);
+    if (!res.ok) throw new Error(`fetch Error ${res.status}`);
+    // return await res.json();
+    setFavoriteBreweries(data);
+  }
+  // fetchFavorites();
+  // }, [user, token]);
+
+  const contextValue = {
+    user,
+    token,
+    handleSignIn,
+    handleSignOut,
+    fetchFavorites,
+    favoriteBreweries,
+  };
 
   return (
     <AppContext.Provider value={contextValue}>
