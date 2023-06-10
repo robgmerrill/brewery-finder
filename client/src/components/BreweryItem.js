@@ -4,9 +4,9 @@ import AppContext from './AppContext';
 import './BreweryItem.css';
 import BreweryRating from './BreweryRating';
 
-export default function BreweryItem({ brewery, inDatabase = false }) {
+export default function BreweryItem({ brewery, inDatabase}) {
   const { user, favoriteBreweries } = useContext(AppContext);
-
+  console.log(inDatabase);
   // console.log(favoriteBreweries)
   // I need to hit api on on the back end with a post request. it needs the user id and the brewery id?
   async function handleClick(brewery) {
@@ -31,9 +31,17 @@ export default function BreweryItem({ brewery, inDatabase = false }) {
   console.log(isInDatabase);
 
   if (isInDatabase) {
-    inDatabase = <FaMinusCircle />;
+    inDatabase = (
+      <button>
+        <FaMinusCircle />
+      </button>
+    );
   } else {
-    inDatabase = <FaPlusCircle />;
+    inDatabase = (
+      <button>
+        <FaPlusCircle onClick={() => handleClick(brewery)} />
+      </button>
+    );
   }
 
   return (
@@ -52,7 +60,7 @@ export default function BreweryItem({ brewery, inDatabase = false }) {
           <FaPlusCircle />
         </button>
       )} */}
-      <button onClick={() => handleClick(brewery)}>{inDatabase}</button>
+      <div>{inDatabase}</div>
     </div>
   );
 }

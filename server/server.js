@@ -82,6 +82,37 @@ app.post('/api/auth/sign-in', async (req, res, next) => {
   }
 });
 
+app.delete('/api/breweries/:breweryId', async (req, res, next) => {
+  try {
+    const breweryId = Number(req.params.breweryId);
+    if (!Number.isInteger(breweryId) || breweryId <= 0) {
+      res.status(400).json({ error: '"breweryId" must be a positive integer' });
+      return;
+    }
+
+    const sql = `
+      delete from "breweries"
+        where "breweryId" = $1
+        returning *
+    `;
+
+    const result = await db.query(sql, [breweryId]);
+    const [brewery] = result.rows;
+    if (brewery) {
+      res.sendStatus(204).json(brewery);
+    } else {
+      res
+        .status(404)
+        .json({ error: `cannot find brewery with "breweryId" ${breweryId}` });
+    }
+
+
+
+  } catch (error) {
+    next(error)
+  }
+})
+
 app.post('/api/breweries', async (req, res, next) => {
   try {
     console.log(req.body)
