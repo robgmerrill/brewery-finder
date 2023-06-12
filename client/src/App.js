@@ -85,6 +85,7 @@ function App() {
     handleSignOut,
     fetchFavorites,
     favoriteBreweries,
+    setFavoriteBreweries
   };
 
   return (

@@ -83,8 +83,11 @@ app.post('/api/auth/sign-in', async (req, res, next) => {
 });
 
 app.delete('/api/breweries/:breweryId', async (req, res, next) => {
+  console.log("does this fire")
   try {
+    console.log(req.params)
     const breweryId = Number(req.params.breweryId);
+
     if (!Number.isInteger(breweryId) || breweryId <= 0) {
       res.status(400).json({ error: '"breweryId" must be a positive integer' });
       return;
@@ -99,7 +102,7 @@ app.delete('/api/breweries/:breweryId', async (req, res, next) => {
     const result = await db.query(sql, [breweryId]);
     const [brewery] = result.rows;
     if (brewery) {
-      res.sendStatus(204).json(brewery);
+      res.sendStatus(204);
     } else {
       res
         .status(404)
